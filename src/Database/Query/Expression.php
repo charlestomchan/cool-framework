@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Admin
+ * Date: 2019/4/2
+ * Time: 14:53
+ */
+
+namespace Cool\Database\Query;
+
+/**
+ * 查询表达式
+ * Class Expression
+ * @package Cool\Database\Query
+ */
+class Expression
+{
+
+    /**
+     * The value of the expression.
+     *
+     * @var mixed
+     */
+    protected $value;
+
+    /**
+     * Create a new raw query expression.
+     *
+     * @param  mixed $value
+     *
+     * @return void
+     */
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * Get the value of the expression.
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Get the value of the expression.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getValue();
+    }
+}
