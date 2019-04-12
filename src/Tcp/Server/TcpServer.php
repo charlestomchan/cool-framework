@@ -10,6 +10,7 @@ namespace Cool\Tcp\Server;
 
 
 use Cool\Foundation\Bean\AbstractObject;
+use Cool\Foundation\Coroutine;
 use Cool\Support\Process;
 use Cool\Tcp\Application;
 
