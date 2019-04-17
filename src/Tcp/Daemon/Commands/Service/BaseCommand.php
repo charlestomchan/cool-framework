@@ -11,7 +11,6 @@ namespace Cool\Tcp\Daemon\Commands\Service;
 use Cool\Console\CommandLine\Flag;
 use Cool\Console\PidFileHandler;
 use Cool\Foundation\Bean\AbstractObject;
-use Cool\Foundation\Exceptions\InvalidArgumentException;
 use Cool\Support\FileSystem;
 
 /**
@@ -50,19 +49,22 @@ class BaseCommand extends AbstractObject
         // 服务器配置处理
         $file = Flag::string(['c', 'configuration'], '');
         if ($file == '') {
-            throw new InvalidArgumentException('Option \'-c/--configuration\' required.');
+            println("Option '-c/--configuration' required.");
+            exit;
         }
         if (!FileSystem::isAbsolute($file)) {
             $file = getcwd() . DIRECTORY_SEPARATOR . $file;
         }
         if (!is_file($file)) {
-            throw new InvalidArgumentException("Configuration file not found: {$file}");
+            println("Configuration file not found: {$file}");
+            exit;
         }
         $config = require $file;
         // 应用配置处理
         if (!is_file($config['application']['config_file'])) {
             $filename = FileSystem::basename($file);
-            throw new InvalidArgumentException("{$filename}: 'application.config_file' file not found: {$config['application']['config_file']}");
+            println("{$filename}: 'application.config_file' file not found: {$config['application']['config_file']}");
+            exit;
         }
         // 构造配置信息
         $this->config = [
@@ -72,11 +74,18 @@ class BaseCommand extends AbstractObject
             'setting'    => $config['setting'],
         ];
         // 配置日志组件
-        $handler         = app()->log->handler;
-        $handler->single = $this->config['setting']['log_file'] ?? '';
+        /** @var \Cool\Log\MultiHandler $multiHandler */
+        $multiHandler = app()->log->handler;
+        foreach ($multiHandler->handlers as $handler) {
+            if ($handler instanceof \Cool\Log\FileHandler) {
+                $handler->single = $this->config['setting']['log_file'] ?? '';
+                break;
+            }
+        }
         // Swoole 判断
         if (!extension_loaded('swoole')) {
-            throw new \RuntimeException('Need swoole extension to run, install: https://www.swoole.com/');
+            println('Need swoole extension to run, install: https://www.swoole.com/');
+            exit;
         }
     }
 

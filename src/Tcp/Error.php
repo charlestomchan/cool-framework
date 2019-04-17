@@ -67,21 +67,21 @@ class Error extends AbstractComponent
     protected static function log($errors)
     {
         // 构造消息
-        $message = "{$errors['message']}" . PHP_EOL;
-        $message .= "[type] {$errors['type']} [code] {$errors['code']}" . PHP_EOL;
-        $message .= "[file] {$errors['file']} [line] {$errors['line']}" . PHP_EOL;
-        $message .= "[trace] {$errors['trace']}";
+        $message = "{message}\n[code] {code} [type] {type}\n[file] {file} [line] {line}\n[trace] {trace}";
+        if (!\Cool::$app->appDebug) {
+            $message = "{message} [{code}] {type} in {file} line {line}";
+        }
         // 写入
-        $errorType = \Cool\Foundation\Error::getType($errors['code']);
-        switch ($errorType) {
+        $level = \Cool\Foundation\Error::getLevel($errors['code']);
+        switch ($level) {
             case 'error':
-                \Cool::$app->log->error($message);
+                \Cool::$app->log->error($message, $errors);
                 break;
             case 'warning':
-                \Cool::$app->log->warning($message);
+                \Cool::$app->log->warning($message, $errors);
                 break;
             case 'notice':
-                \Cool::$app->log->notice($message);
+                \Cool::$app->log->notice($message, $errors);
                 break;
         }
     }

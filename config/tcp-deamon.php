@@ -7,7 +7,7 @@ return [
     'appName'          => 'cool-tcpd',
 
     // 应用版本
-    'appVersion'       => '1.0.0',
+    'appVersion'       => '1.0.1',
 
     // 应用调试
     'appDebug'         => env('APP_DEBUG'),
@@ -26,45 +26,45 @@ return [
 
         'service start' => [
             'Service\Start',
-            'description' => 'Start the cool-httpd service.',
+            'description' => "\tStart the Cool-httpd service.",
             'options'     => [
-                '-c/--configuration' => 'FILENAME -- configuration file path',
-                '-d/--daemon'        => "\t" . 'Run in the background',
-                '-u/--update'        => "\t" . 'Enable code hot update',
+                [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
+                [['d', 'daemon'], 'description' => "\t" . 'Run in the background'],
+                [['u', 'update'], 'description' => "\tEnable code hot update (only sync available"],
             ],
         ],
 
         'service stop' => [
             'Service\Stop',
-            'description' => 'Stop the cool-httpd service.',
+            'description' => "\tStop the Cool-httpd service.",
             'options'     => [
-                '-c/--configuration' => 'FILENAME -- configuration file path',
+                [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
             ],
         ],
 
         'service restart' => [
             'Service\Restart',
-            'description' => 'Restart the cool-httpd service.',
+            'description' => 'Restart the Cool-httpd service.',
             'options'     => [
-                '-c/--configuration' => 'FILENAME -- configuration file path',
-                '-d/--daemon'        => "\t" . 'Run in the background',
-                '-u/--update'        => "\t" . 'Enable code hot update',
+                [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
+                [['d', 'daemon'], 'description' => "\t" . 'Run in the background'],
+                [['u', 'update'], 'description' => "\tEnable code hot update (only sync available"],
             ],
         ],
 
         'service reload' => [
             'Service\Reload',
-            'description' => 'Reload the worker process of the cool-httpd service.',
+            'description' => 'Reload the worker process of the Cool-httpd service.',
             'options'     => [
-                '-c/--configuration' => 'FILENAME -- configuration file path',
+                [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
             ],
         ],
 
         'service status' => [
             'Service\Status',
-            'description' => 'Check the status of the cool-httpd service.',
+            'description' => 'Check the status of the Cool-httpd service.',
             'options'     => [
-                '-c/--configuration' => 'FILENAME -- configuration file path',
+                [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
             ],
         ],
 
@@ -109,15 +109,43 @@ return [
             'properties' => [
                 // 日志记录级别
                 'levels'  => ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'],
-                // 处理者
+                // 处理器
                 'handler' => [
                     // 依赖引用
-                    'ref' => beanname(Cool\Log\FileHandler::class),
+                    'ref' => beanname(Cool\Log\MultiHandler::class),
                 ],
             ],
         ],
 
-        // 处理者
+        // 日志处理器
+        [
+            // 类路径
+            'class'      => Cool\Log\MultiHandler::class,
+            // 属性
+            'properties' => [
+                // 日志处理器集合
+                'handlers' => [
+                    // 标准输出处理器
+                    [
+                        // 依赖引用
+                        'ref' => beanname(Cool\Log\StdoutHandler::class),
+                    ],
+                    // 文件处理器
+                    [
+                        // 依赖引用
+                        'ref' => beanname(Cool\Log\FileHandler::class),
+                    ],
+                ],
+            ],
+        ],
+
+        // 日志标准输出处理器
+        [
+            // 类路径
+            'class' => Cool\Log\StdoutHandler::class,
+        ],
+
+        // 日志文件处理器
         [
             // 类路径
             'class' => Cool\Log\FileHandler::class,
