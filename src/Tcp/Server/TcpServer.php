@@ -237,7 +237,6 @@ class TcpServer extends AbstractObject
         $swooleVersion = swoole_version();
         $phpVersion    = PHP_VERSION;
         echo <<<EOL
-        echo <<<EOL
         
         CCCCCCCCCCCCC                                  lllllll 
      CCC::::::::::::C                                  l:::::l 

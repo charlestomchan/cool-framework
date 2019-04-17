@@ -15,7 +15,7 @@ class Cool{
 
     /**
      * App实例
-     * @var \Cool\Console\Application | \Cool\Http\Application | \Cool\Websocket\Application
+     * @var \Cool\Console\Application | \Cool\Http\Application | \Cool\Websocket\Application | \Cool\Tcp\Application
      */
     public static $app;
 
