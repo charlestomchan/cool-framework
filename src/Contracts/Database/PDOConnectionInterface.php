@@ -8,6 +8,8 @@
 
 namespace Cool\Contracts\Database;
 
+use Cool\Database\QueryBuilder;
+
 /**
  * Interface PDOConnectionInterface
  * @package Cool\Contracts\Database
@@ -21,13 +23,6 @@ interface PDOConnectionInterface
     public function disconnect();
 
     /**
-     * 查询构建
-     * @param $item
-     * @return $this
-     */
-    public function queryBuilder($item);
-
-    /**
      * 创建命令
      * @param null $sql
      * @return $this
@@ -36,10 +31,10 @@ interface PDOConnectionInterface
 
     /**
      * 绑定参数
-     * @param $data
+     * @param array $data
      * @return $this
      */
-    public function bindParams($data);
+    public function bindParams(array $data);
 
     /**
      * 返回结果集
@@ -64,7 +59,7 @@ interface PDOConnectionInterface
      * @param int $columnNumber
      * @return array
      */
-    public function queryColumn($columnNumber = 0);
+    public function queryColumn(int $columnNumber = 0);
 
     /**
      * 返回一个标量值
@@ -98,43 +93,43 @@ interface PDOConnectionInterface
 
     /**
      * 插入
-     * @param $table
-     * @param $data
+     * @param string $table
+     * @param array $data
      * @return $this
      */
-    public function insert($table, $data);
+    public function insert(string $table, array $data);
 
     /**
      * 批量插入
-     * @param $table
-     * @param $data
+     * @param string $table
+     * @param array $data
      * @return $this
      */
-    public function batchInsert($table, $data);
+    public function batchInsert(string $table, array $data);
 
     /**
      * 更新
-     * @param $table
-     * @param $data
-     * @param $where
+     * @param string $table
+     * @param array $data
+     * @param array $where
      * @return $this
      */
-    public function update($table, $data, $where);
+    public function update(string $table, array $data, array $where);
 
     /**
      * 删除
-     * @param $table
-     * @param $where
+     * @param string $table
+     * @param array $where
      * @return $this
      */
-    public function delete($table, $where);
+    public function delete(string $table, array $where);
 
     /**
      * 自动事务
-     * @param $closure
+     * @param \Closure $closure
      * @throws \Throwable
      */
-    public function transaction($closure);
+    public function transaction(\Closure $closure);
 
     /**
      * 开始事务
@@ -153,5 +148,26 @@ interface PDOConnectionInterface
      * @return bool
      */
     public function rollback();
+
+    /**
+     * 返回当前PDO连接是否在事务内（在事务内的连接回池会造成下次开启事务产生错误）
+     * @return bool
+     */
+    public function inTransaction();
+
+    /**
+     * 返回一个RawQuery对象，对象的值将不经过参数绑定，直接解释为SQL的一部分，适合传递数据库原生函数
+     * @param string $value
+     * @return \Cool\Database\Query\Expression
+     */
+    public static function raw(string $value);
+
+    /**
+     * 启动查询生成器
+     * @param string $table
+     * @return QueryBuilder
+     */
+    public function table(string $table);
+
 
 }

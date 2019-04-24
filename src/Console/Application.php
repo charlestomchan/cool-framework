@@ -138,10 +138,25 @@ class Application extends BaseApplication
      */
     protected function printOptions()
     {
+        $tabs = $this->hasSubCommand() ? "\t\t" : "\t";
         println('');
         println('Options:');
-        println("  -h/--help\tPrint usage.");
-        println("  -v/--version\tPrint version information.");
+        println("  -h, --help{$tabs}Print usage.");
+        println("  -v, --version{$tabs}Print version information.");
+    }
+
+    /**
+     * 有子命令
+     * @return bool
+     */
+    protected function hasSubCommand()
+    {
+        foreach ($this->commands as $key => $item) {
+            if (strpos($key, ' ') !== false) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -191,7 +206,7 @@ class Application extends BaseApplication
                     $flags[] = "--{$name}";
                 }
             }
-            $flag        = implode(', ', $flags);
+            $flag = implode(', ', $flags);
             $description = $option['description'] ?? '';
             println("  {$flag}\t{$description}");
         }
@@ -214,11 +229,11 @@ class Application extends BaseApplication
         if (is_array($shortClass)) {
             $shortClass = array_shift($shortClass);
         }
-        $shortClass    = str_replace('/', "\\", $shortClass);
-        $commandDir    = FileSystem::dirname($shortClass);
-        $commandDir    = $commandDir == '.' ? '' : "$commandDir\\";
-        $commandName   = FileSystem::basename($shortClass);
-        $commandClass  = "{$this->commandNamespace}\\{$commandDir}{$commandName}Command";
+        $shortClass = str_replace('/', "\\", $shortClass);
+        $commandDir = FileSystem::dirname($shortClass);
+        $commandDir = $commandDir == '.' ? '' : "$commandDir\\";
+        $commandName = FileSystem::basename($shortClass);
+        $commandClass = "{$this->commandNamespace}\\{$commandDir}{$commandName}Command";
         $commandAction = 'main';
         // 判断类是否存在
         if (!class_exists($commandClass)) {
@@ -241,7 +256,7 @@ class Application extends BaseApplication
      */
     protected function validateOptions($command)
     {
-        $options  = $this->commands[$command]['options'] ?? [];
+        $options = $this->commands[$command]['options'] ?? [];
         $regflags = [];
         foreach ($options as $option) {
             $names = array_shift($option);

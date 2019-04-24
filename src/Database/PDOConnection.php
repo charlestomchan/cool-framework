@@ -8,10 +8,14 @@
 
 namespace Cool\Database;
 
-use Cool\Database\Base\AbstractPDOConnection as BasePDOConnection;
-class PDOConnection extends BasePDOConnection
+use Cool\Database\Base\AbstractPDOConnection;
+
+class PDOConnection extends AbstractPDOConnection
 {
-    // 后置处理事件
+
+    /**
+     * 后置处理事件
+     */
     public function onAfterInitialize()
     {
         parent::onAfterInitialize();
@@ -19,7 +23,9 @@ class PDOConnection extends BasePDOConnection
         $this->disconnect();
     }
 
-    // 析构事件
+    /**
+     * 析构事件
+     */
     public function onDestruct()
     {
         parent::onDestruct();
