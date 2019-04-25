@@ -18,7 +18,8 @@
         "ext-json":"*",
         "ext-redis":"*",
         "ext-pdo":"*",
-        "ext-mbstring":"*"
+        "ext-mbstring":"*",
+        "ramsey/uuid": "^3.7"
     },
     "minimum-stability": "dev",
     "autoload": {
@@ -33,6 +34,6 @@
         ]
     },
     "require-dev": {
-        "swoole/ide-helper": "@dev"
+        "swoole/ide-helper": "4.3.1"
     }
 }
