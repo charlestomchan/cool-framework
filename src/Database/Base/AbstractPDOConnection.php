@@ -10,7 +10,9 @@ namespace Cool\Database\Base;
 
 
 use Cool\Contracts\Database\PDOConnectionInterface;
+use Cool\Database\Query\BuildHelper;
 use Cool\Database\Query\Expression;
+use Cool\Database\QueryBuilder;
 use Cool\Foundation\Component\AbstractComponent;
 
 abstract class AbstractPDOConnection extends AbstractComponent implements PDOConnectionInterface
