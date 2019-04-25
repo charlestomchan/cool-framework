@@ -48,4 +48,20 @@ class Authorization extends AbstractComponent
         return $this->jwt->create($payload);
     }
 
+    /**
+     * @param string $key
+     * @return JWT
+     */
+    public function setKey($key = '')
+    {
+        return $this->jwt->setKey($key);
+    }
+
+    /**
+     * @return JWT
+     */
+    public function getJwt()
+    {
+        return $this->jwt;
+    }
 }

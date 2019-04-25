@@ -94,4 +94,17 @@ class JWT extends AbstractComponent
         }
     }
 
+    /**
+     * @param string $key
+     * @return $this
+     */
+    public function setKey($key = '')
+    {
+        if (!$key) {
+            $this->key = $key;
+        }
+        return $this;
+    }
+
+
 }
