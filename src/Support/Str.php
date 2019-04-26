@@ -9,6 +9,10 @@
 namespace Cool\Support;
 
 use Cool\Support\Traits\Macroable;
+use Ramsey\Uuid\Codec\TimestampFirstCombCodec;
+use Ramsey\Uuid\Generator\CombGenerator;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactory;
 
 /**
  * Class Str
@@ -571,7 +575,7 @@ class Str
      */
     public static function orderedUuid()
     {
-        $factory = new UuidFactory;
+        $factory = new UuidFactory();
 
         $factory->setRandomGenerator(new CombGenerator(
             $factory->getRandomGenerator(),
