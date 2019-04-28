@@ -167,6 +167,7 @@ abstract class AbstractPDOConnection extends AbstractComponent implements PDOCon
         if (is_string($sql)) {
             $this->_sql = $sql;
         }
+
         // 数组构建
         if (is_array($sql)) {
             foreach ($sql as $item) {
