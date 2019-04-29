@@ -5,15 +5,12 @@
  * Date: 2019/4/10
  * Time: 18:47
  */
-
 namespace Cool\Concurrent\CoroutinePool;
-
-
 use Cool\Foundation\Bean\AbstractObject;
 use Cool\Foundation\Coroutine;
 use Cool\Foundation\Coroutine\Channel;
 
-class AbstractWorker extends AbstractObject
+abstract class AbstractWorker extends AbstractObject
 {
     /**
      * 工作池
