@@ -52,8 +52,12 @@ class Environment extends AbstractObject
      */
     public function section($name, $default = '')
     {
-        if (!isset($this->_data[$name])) {
+        if (!isset($this->_data[$name]) || $this->_data[$name] === "") {
             return $default;
+        }
+
+        if (($valueLength = strlen($this->_data[$name])) > 1 && $this->_data[$name][0] === '"' && $this->_data[$name][$valueLength - 1] === '"') {
+            return substr($this->_data[$name], 1, -1);
         }
         return $this->_data[$name];
     }

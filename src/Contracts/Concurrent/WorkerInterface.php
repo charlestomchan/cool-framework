@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 2019/4/13
- * Time: 14:12
- */
 
 namespace Cool\Contracts\Concurrent;
 
@@ -14,6 +8,7 @@ namespace Cool\Contracts\Concurrent;
  */
 interface WorkerInterface
 {
+
     /**
      * 启动
      */
