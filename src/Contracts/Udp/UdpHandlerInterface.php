@@ -6,8 +6,7 @@ use Cool\Udp\UdpSender;
 
 /**
  * Interface UdpHandlerInterface
- * @package Mix\Udp\Handler
- * @author liu,jian <coder.keda@gmail.com>
+ * @package Cool\Udp\Handler
  */
 interface UdpHandlerInterface
 {
