@@ -33,7 +33,7 @@ class TcpConnection extends AbstractComponent
     public function beforeInitialize(\Swoole\Server $server, int $fd)
     {
         $this->server = $server;
-        $this->fd     = $fd;
+        $this->fd = $fd;
         // 设置组件状态
         $this->setStatus(ComponentInterface::STATUS_RUNNING);
     }
@@ -54,6 +54,16 @@ class TcpConnection extends AbstractComponent
     public function send(string $data)
     {
         return $this->server->send($this->fd, $data);
+    }
+
+    /**
+     * 发送
+     * @param string $data
+     * @return bool
+     */
+    public function sendTo($fd, string $data)
+    {
+        return $this->server->send($fd, $data);
     }
 
     /**

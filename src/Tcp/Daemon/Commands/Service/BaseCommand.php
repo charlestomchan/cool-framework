@@ -68,10 +68,11 @@ class BaseCommand extends AbstractObject
         }
         // 构造配置信息
         $this->config = [
-            'host'       => $config['server']['host'],
-            'port'       => $config['server']['port'],
+            'host' => $config['server']['host'],
+            'port' => $config['server']['port'],
             'configFile' => $config['application']['config_file'],
-            'setting'    => $config['setting'],
+            'setting' => $config['setting'],
+            'add_listener' => $config['add_listener'] ?? [],
         ];
         // 配置日志组件
         /** @var \Cool\Log\MultiHandler $multiHandler */

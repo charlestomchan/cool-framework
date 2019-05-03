@@ -49,5 +49,16 @@ class Application extends BaseApplication
         $handler = \Cool::$app->registry->getHandler();
         $handler->close($tcp);
     }
+    /**
+     * 多端口监听
+     * @param $tcp
+     * @param $data
+     * @param $clientInfo
+     */
+    public function runPacket($tcp, $data, $clientInfo)
+    {
+        $handler = \Cool::$app->registry->getHandler();
+        $handler->packet($tcp, $data, $clientInfo);
+    }
 
 }
