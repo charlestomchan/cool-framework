@@ -52,12 +52,13 @@ class Coroutine
 
     /**
      * 启用协程钩子
+     * @param int $flags
      */
-    public static function enableHook()
+    public static function enableHook(int $flags = SWOOLE_HOOK_ALL)
     {
         static $trigger = false;
         if (!$trigger) {
-            \Swoole\Runtime::enableCoroutine(true); // Swoole >= 4.1.0
+            \Swoole\Runtime::enableCoroutine(true, $flags); // Swoole >= 4.1.0
             $trigger = true;
         }
     }
@@ -82,7 +83,7 @@ class Coroutine
     }
 
     /**
-     * 创建协程
+     * 创建协程 (自动)
      * @param callable $function
      * @param mixed ...$params
      */
@@ -117,14 +118,15 @@ class Coroutine
             } catch (\Throwable $e) {
                 // 输出错误
                 \Cool::$app->error->handleException($e);
-            }
-            // 清理协程资源
-            unset(self::$idMap[$id]);
-            self::$tidCount[$tid]--;
-            // 清除协程
-            if (self::$tidCount[$tid] == 0) {
-                unset(self::$tidCount[$tid]);
-                \Cool::$app->container->delete($tid);
+            } finally {
+                // 清理协程资源
+                unset(self::$idMap[$id]);
+                self::$tidCount[$tid]--;
+                // 清除协程
+                if (self::$tidCount[$tid] == 0) {
+                    unset(self::$tidCount[$tid]);
+                    \Cool::$app->container->delete($tid);
+                }
             }
         });
     }

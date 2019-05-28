@@ -30,9 +30,9 @@ return [
     // 命令
     'commands'         => [
 
-        'service start' => [
-            'Service\Start',
-            'description' => 'Start the cool-httpd service.',
+        'start' => [
+            'Start',
+            'description' => "\tStart the mix-httpd service.",
             'options'     => [
                 [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
                 [['d', 'daemon'], 'description' => "\t" . 'Run in the background'],
@@ -40,17 +40,17 @@ return [
             ],
         ],
 
-        'service stop' => [
-            'Service\Stop',
-            'description' => 'Stop the cool-httpd service.',
+        'stop' => [
+            'Stop',
+            'description' => "\tStop the mix-httpd service.",
             'options'     => [
                 [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
             ],
         ],
 
-        'service restart' => [
-            'Service\Restart',
-            'description' => 'Restart the cool-httpd service.',
+        'restart' => [
+            'Restart',
+            'description' => 'Restart the mix-httpd service.',
             'options'     => [
                 [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
                 [['d', 'daemon'], 'description' => "\t" . 'Run in the background'],
@@ -58,17 +58,17 @@ return [
             ],
         ],
 
-        'service reload' => [
-            'Service\Reload',
-            'description' => 'Reload the worker process of the cool-httpd service.',
+        'reload' => [
+            'Reload',
+            'description' => 'Reload the worker process of the mix-httpd service.',
             'options'     => [
                 [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
             ],
         ],
 
-        'service status' => [
-            'Service\Status',
-            'description' => 'Check the status of the cool-httpd service.',
+        'status' => [
+            'Status',
+            'description' => 'Check the status of the mix-httpd service.',
             'options'     => [
                 [['c', 'configuration'], 'description' => 'FILENAME -- configuration file path'],
             ],

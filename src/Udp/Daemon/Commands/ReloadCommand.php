@@ -1,13 +1,13 @@
 <?php
 
-namespace Cool\Http\Daemon\Commands\Service;
+namespace Cool\Udp\Daemon\Commands;
 
 use Cool\Support\Process;
 
+
 /**
  * Class ReloadCommand
- * @package Cool\Http\Daemon\Commands\Service
- * @author charles <charlestomchan@gmail.com>
+ * @package Cool\Udp\Daemon\Commands
  */
 class ReloadCommand extends BaseCommand
 {

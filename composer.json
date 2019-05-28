@@ -18,6 +18,7 @@
         "ext-json":"*",
         "ext-redis":"*",
         "ext-pdo":"*",
+        "ext-posix":"*",
         "ext-mbstring":"*",
         "ramsey/uuid": "^3.7"
     },

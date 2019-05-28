@@ -1,14 +1,14 @@
 <?php
 
-namespace Cool\Http\Daemon\Commands\Service;
+namespace Cool\Udp\Daemon\Commands;
 
 use Cool\Support\Process;
 
 /**
- * Class RestartCommand
- * @package Cool\Http\Daemon\Commands\Service
+ * Class StopCommand
+ * @package Cool\Udp\Daemon\Commands
  */
-class RestartCommand extends StartCommand
+class StopCommand extends BaseCommand
 {
 
     /**
@@ -28,8 +28,7 @@ class RestartCommand extends StartCommand
             // 等待进程退出
             usleep(100000);
         }
-        // 启动服务
-        parent::main();
+        println(self::EXEC_SUCCESS);
     }
 
 }

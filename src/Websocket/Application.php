@@ -21,13 +21,14 @@ class Application extends BaseApplication
 
     /**
      * 执行握手
+     * @param $ws
      * @param $request
      * @param $response
      */
-    public function runHandshake($request, $response)
+    public function runHandshake($ws, $request, $response)
     {
         $interceptor = \Cool::$app->registry->getInterceptor();
-        $interceptor->handshake($request, $response);
+        $interceptor->handshake($ws, $request, $response);
     }
 
     /**

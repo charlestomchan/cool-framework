@@ -1,14 +1,15 @@
 <?php
 
-namespace Cool\Udp\Daemon\Commands\Service;
+namespace Cool\Http\Daemon\Commands;
 
 use Cool\Support\Process;
 
 /**
- * Class StopCommand
- * @package Cool\Udp\Daemon\Commands\Service
+ * Class ReloadCommand
+ * @package Cool\Http\Daemon\Commands
+ * @author charles <charlestomchan@gmail.com>
  */
-class StopCommand extends BaseCommand
+class ReloadCommand extends BaseCommand
 {
 
     /**
@@ -22,12 +23,8 @@ class StopCommand extends BaseCommand
             println(self::NOT_RUNNING);
             return;
         }
-        // 停止服务
-        Process::kill($pid);
-        while (Process::kill($pid, 0)) {
-            // 等待进程退出
-            usleep(100000);
-        }
+        // 重启子进程
+        Process::kill($pid, SIGUSR1);
         println(self::EXEC_SUCCESS);
     }
 

@@ -11,13 +11,21 @@ class Cool{
      * 版本号
      * @var string
      */
-    public static $version = '1.0.0';
+    public static $version = '2.0.5';
 
     /**
      * App实例
-     * @var \Cool\Console\Application | \Cool\Http\Application | \Cool\Websocket\Application | \Cool\Tcp\Application
+     *
+     * @var \Cool\Console\Application|\Cool\Http\Application|\Cool\WebSocket\Application|\Cool\Tcp\Application|\Cool\Udp\Application
      */
     public static $app;
+
+    /**
+     * Server实例
+     *
+     * @var \Cool\Http\Server\HttpServer|\Cool\WebSocket\Server\WebSocketServer|\Cool\Tcp\Server\TcpServer|\Cool\Udp\Server\UdpServer
+     */
+    public static $server;
 
     /**
      * 环境配置
@@ -28,7 +36,7 @@ class Cool{
     /**
      * 构建配置
      * @param array $config
-     * @param bool $ref
+     *
      * @return mixed
      */
     public static function configure(array $config)
@@ -36,7 +44,8 @@ class Cool{
         foreach ($config as $key => $value) {
             // 子类处理
             if (is_array($value)) {
-                if (array_values($value) === $value) {//非关联数组
+                if (array_values($value) === $value) {
+                    // 非关联数组
                     foreach ($value as $subNumberKey => $subValue) {
                         if (isset($subValue['ref'])) {
                             $config[$key][$subNumberKey] = self::configure($subValue);

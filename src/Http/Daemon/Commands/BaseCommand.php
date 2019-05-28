@@ -1,20 +1,26 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Admin
+ * Date: 2019/3/20
+ * Time: 14:25
+ */
 
-namespace Cool\Udp\Daemon\Commands\Service;
+namespace Cool\Http\Daemon\Commands;
 
-use Cool\Foundation\Bean\AbstractObject;
+
 use Cool\Console\CommandLine\Flag;
 use Cool\Console\PidFileHandler;
+use Cool\Foundation\Bean\AbstractObject;
+use Cool\Log\FileHandler;
 use Cool\Support\FileSystem;
-
 
 /**
  * Class BaseCommand
- * @package Cool\Udp\Daemon\Commands\Service
+ * @package Cool\Http\Daemon\Commands
  */
 class BaseCommand extends AbstractObject
 {
-
     /**
      * 运行中提示
      */
@@ -73,7 +79,7 @@ class BaseCommand extends AbstractObject
         /** @var \Cool\Log\MultiHandler $multiHandler */
         $multiHandler = app()->log->handler;
         foreach ($multiHandler->handlers as $handler) {
-            if ($handler instanceof \Cool\Log\FileHandler) {
+            if ($handler instanceof FileHandler) {
                 $handler->single = $this->config['setting']['log_file'] ?? '';
                 break;
             }

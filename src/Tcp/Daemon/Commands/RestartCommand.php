@@ -1,17 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Admin
+ * Date: 2019/3/22
+ * Time: 19:12
+ */
 
-namespace Cool\Http\Daemon\Commands\Service;
+namespace Cool\Tcp\Daemon\Commands;
 
 use Cool\Support\Process;
 
 /**
- * Class StopCommand
- * @package Cool\Http\Daemon\Commands\Service
- * @author charles <charlestomchan@gmail.com>
+ * Class RestartCommand
+ * @package Cool\Tcp\Daemon\Commands
  */
-class StopCommand extends BaseCommand
+class RestartCommand extends StartCommand
 {
-
     /**
      * 主函数
      */
@@ -29,7 +33,7 @@ class StopCommand extends BaseCommand
             // 等待进程退出
             usleep(100000);
         }
-        println(self::EXEC_SUCCESS);
+        // 启动服务
+        parent::main();
     }
-
 }

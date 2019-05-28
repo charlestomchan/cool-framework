@@ -1,17 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Admin
+ * Date: 2019/4/5
+ * Time: 16:04
+ */
 
-namespace Cool\Udp\Daemon\Commands\Service;
+namespace Cool\Websocket\Daemon\Commands;
+
 
 use Cool\Support\Process;
 
-
-/**
- * Class ReloadCommand
- * @package Cool\Udp\Daemon\Commands\Service
- */
 class ReloadCommand extends BaseCommand
 {
-
     /**
      * 主函数
      */
@@ -27,5 +28,4 @@ class ReloadCommand extends BaseCommand
         Process::kill($pid, SIGUSR1);
         println(self::EXEC_SUCCESS);
     }
-
 }

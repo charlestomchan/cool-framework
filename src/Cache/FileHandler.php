@@ -71,7 +71,7 @@ class FileHandler extends AbstractComponent implements HandlerInterface
         $dir = dirname($file);
         is_dir($dir) or mkdir($dir, 0777, true);
         // 写入
-        $bytes = file_put_contents($file, serialize($data), FILE_APPEND | LOCK_EX);
+        $bytes = file_put_contents($file, serialize($data), LOCK_EX);
         return $bytes ? true : false;
     }
 

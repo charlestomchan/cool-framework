@@ -1,14 +1,13 @@
 <?php
 
-namespace Cool\Http\Daemon\Commands\Service;
+namespace Cool\Udp\Daemon\Commands;
 
 use Cool\Console\CommandLine\Flag;
-use Cool\Http\Server\HttpServer;
+use Cool\Udp\Server\UdpServer;
 
 /**
  * Class StartCommand
- * @package Cool\Http\Daemon\Commands\Service
- * @author charles <charlestomchan@gmail.com>
+ * @package Cool\Udp\Daemon\Commands
  */
 class StartCommand extends BaseCommand
 {
@@ -42,7 +41,7 @@ class StartCommand extends BaseCommand
     public function main()
     {
         // 获取服务信息
-        $server = new HttpServer($this->config);
+        $server = new UdpServer($this->config);
         $pid    = $this->getServicePid();
         if ($pid) {
             println(sprintf(self::IS_RUNNING, $pid));

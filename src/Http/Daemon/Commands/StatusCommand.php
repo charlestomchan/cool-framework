@@ -1,10 +1,11 @@
 <?php
 
-namespace Cool\Udp\Daemon\Commands\Service;
+namespace Cool\Http\Daemon\Commands;
 
 /**
  * Class StatusCommand
- * @package Cool\Udp\Daemon\Commands\Service
+ * @package Cool\Http\Daemon\Commands
+ * @author charles <charlestomchan@gmail.com>
  */
 class StatusCommand extends BaseCommand
 {

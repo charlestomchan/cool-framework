@@ -1,15 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Admin
+ * Date: 2019/3/22
+ * Time: 19:12
+ */
 
-namespace Cool\Http\Daemon\Commands\Service;
+namespace Cool\Tcp\Daemon\Commands;
 
 /**
  * Class StatusCommand
- * @package Cool\Http\Daemon\Commands\Service
- * @author charles <charlestomchan@gmail.com>
+ * @package Cool\Tcp\Daemon\Commands
  */
 class StatusCommand extends BaseCommand
 {
-
     /**
      * 主函数
      */
@@ -22,5 +26,4 @@ class StatusCommand extends BaseCommand
         }
         println(sprintf(self::IS_RUNNING, $pid));
     }
-
 }

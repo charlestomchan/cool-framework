@@ -20,7 +20,7 @@ trait ComponentTrait
      * 协程模式
      * @var int
      */
-    public static $coroutineMode = ComponentInterface::COROUTINE_MODE_NEW;
+    const COROUTINE_MODE = ComponentInterface::COROUTINE_MODE_NEW;
 
     /**
      * 组件状态
