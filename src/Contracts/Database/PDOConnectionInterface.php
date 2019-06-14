@@ -23,11 +23,19 @@ interface PDOConnectionInterface
     public function disconnect();
 
     /**
-     * 创建命令
-     * @param null $sql
+     * 准备执行语句
+     * 为了兼容旧版本，保留这项功能
+     * @param $sql
      * @return $this
      */
-    public function createCommand($sql = null);
+    public function createCommand($sql);
+
+    /**
+     * 准备执行语句
+     * @param $sql
+     * @return $this
+     */
+    public function prepare($sql);
 
     /**
      * 绑定参数
@@ -86,10 +94,23 @@ interface PDOConnectionInterface
     public function getRowCount();
 
     /**
-     * 返回原生SQL语句
+     * 返回最后的SQL语句
+     * 为了兼容旧版本，保留这项功能
      * @return string
      */
     public function getRawSql();
+
+    /**
+     * 返回最后的SQL语句
+     * @return string
+     */
+    public function getLastSql();
+
+    /**
+     * 获取最后的日志
+     * @return array
+     */
+    public function getLastLog();
 
     /**
      * 插入
