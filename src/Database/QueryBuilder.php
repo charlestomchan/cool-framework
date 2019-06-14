@@ -160,7 +160,11 @@ class QueryBuilder
      */
     public function where(array $where)
     {
-        array_push($this->_where, $where);
+        if (!BuildHelper::isMulti($where)) {
+            array_push($this->_where, $where);
+        } else {
+            $this->_where = array_merge($this->_where, $where);
+        }
         return $this;
     }
 
@@ -226,10 +230,10 @@ class QueryBuilder
     }
 
     /**
-     * 创建命令
+     * 预处理
      * @return PDOConnectionInterface
      */
-    protected function createCommand()
+    public function prepare()
     {
         $sql = [];
         // select
@@ -241,7 +245,7 @@ class QueryBuilder
         }
         // table
         if ($this->_table) {
-            $sql[] = ["FROM `{$this->_table}`"];
+            $sql[] = ["FROM {$this->_table}"];
         }
         if ($this->_join) {
             foreach ($this->_join as $item) {
@@ -283,9 +287,8 @@ class QueryBuilder
         if ($this->_limit > 0) {
             $sql[] = ['LIMIT :__offset, :__limit', 'params' => ['__offset' => $this->_offset, '__limit' => $this->_limit]];
         }
-
         // 返回
-        return $this->connection->createCommand($sql);
+        return $this->connection->prepare($sql);
     }
 
     /**
@@ -294,7 +297,7 @@ class QueryBuilder
      */
     public function get()
     {
-        return $this->createCommand()->queryAll();
+        return $this->prepare()->queryAll();
     }
 
     /**
@@ -303,7 +306,7 @@ class QueryBuilder
      */
     public function first()
     {
-        return $this->createCommand()->queryOne();
+        return $this->prepare()->queryOne();
     }
 
 }
