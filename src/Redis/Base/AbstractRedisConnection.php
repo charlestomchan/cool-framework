@@ -45,6 +45,11 @@ abstract class AbstractRedisConnection extends AbstractComponent implements Redi
     public $password = '';
 
     /**
+     * @var \Mix\Redis\ExecuteListenerInterface
+     */
+    public $listener;
+
+    /**
      * redis对象
      * @var \Redis
      */
@@ -105,17 +110,101 @@ abstract class AbstractRedisConnection extends AbstractComponent implements Redi
     }
 
     /**
+     * 获取微秒时间
+     * @return float
+     */
+    protected static function microtime()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
+    }
+
+    /**
+     * 执行监听器
+     * @param $command
+     * @param $arguments
+     * @param $time
+     */
+    protected function runListener($command, $arguments, $time)
+    {
+        if (!$this->listener) {
+            return;
+        }
+        $this->listener->listen([
+            'command'   => $command,
+            'arguments' => $arguments,
+            'time'      => $time,
+        ]);
+    }
+
+    /**
      * 执行命令
      * @param $name
      * @param $arguments
      * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call($command, $arguments)
     {
         // 自动连接
         $this->autoConnect();
         // 执行命令
-        return call_user_func_array([$this->_redis, $name], $arguments);
+        $microtime = static::microtime();
+        $result    = call_user_func_array([$this->_redis, $command], $arguments);
+        $time      = round((static::microtime() - $microtime) * 1000, 2);
+        // 执行监听器
+        $this->runListener($command, $arguments, $time);
+        // 返回
+        return $result;
     }
 
+    /**
+     * 遍历key
+     * @param $iterator
+     * @param string $pattern
+     * @param int $count
+     * @return array|bool
+     */
+    public function scan(&$iterator, $pattern = '', $count = 0)
+    {
+        return $this->_redis->scan($iterator, $pattern, $count);
+    }
+
+    /**
+     * 遍历set key
+     * @param $key
+     * @param $iterator
+     * @param string $pattern
+     * @param int $count
+     * @return array|bool
+     */
+    public function sScan($key, &$iterator, $pattern = '', $count = 0)
+    {
+        return $this->_redis->sScan($key, $iterator, $pattern, $count);
+    }
+
+    /**
+     * 遍历zset key
+     * @param $key
+     * @param $iterator
+     * @param string $pattern
+     * @param int $count
+     * @return array|bool
+     */
+    public function zScan($key, &$iterator, $pattern = '', $count = 0)
+    {
+        return $this->_redis->zScan($key, $iterator, $pattern, $count);
+    }
+
+    /**
+     * 遍历hash key
+     * @param $key
+     * @param $iterator
+     * @param string $pattern
+     * @param int $count
+     * @return array
+     */
+    public function hScan($key, &$iterator, $pattern = '', $count = 0)
+    {
+        return $this->_redis->hScan($key, $iterator, $pattern, $count);
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Cool\Contracts\Database;
+namespace Cool\Contracts\Redis;
 
 /**
  * Interface ExecuteListenerInterface
- * @package Cool\Contracts\Database
+ * @package Cool\Contracts\Redis
  */
 interface ExecuteListenerInterface
 {
