@@ -19,7 +19,7 @@ return [
     'runtimePath'      => '',
 
     // 命令命名空间
-    'commandNamespace' => 'Cool\Udp\Daemon\Commands',
+    'commandNamespace' => 'Cool\Udp\Commands',
 
     // 命令
     'commands'         => [

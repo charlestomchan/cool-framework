@@ -19,12 +19,6 @@ class WebSocketServer extends AbstractServer
 {
 
     /**
-     * 服务名称
-     * @var string
-     */
-    public $name = 'cool-websocketd';
-
-    /**
      * 主机
      * @var string
      */

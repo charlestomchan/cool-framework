@@ -24,7 +24,7 @@ return [
     'runtimePath'      => '',
 
     // 命令命名空间
-    'commandNamespace' => 'Cool\WebSocket\Daemon\Commands',
+    'commandNamespace' => 'Cool\Websocket\Commands',
 
     // 命令
     'commands'         => [

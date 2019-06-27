@@ -20,9 +20,10 @@ interface InterceptorInterface
 {
     /**
      * 握手
-     * @param Request $request
-     * @param Response $response
+     * @param WebSocketConnection $ws
+     * @param HttpRequest $request
+     * @param HttpResponse $response
      */
-    public function handshake(Request $request, Response $response);
+    public function handshake(WebSocketConnection $ws, HttpRequest $request, HttpResponse $response);
 
 }

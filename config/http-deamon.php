@@ -25,7 +25,7 @@ return [
     'runtimePath'      => '',
 
     // 命令命名空间
-    'commandNamespace' => 'Cool\Http\Daemon\Commands',
+    'commandNamespace' => 'Cool\Http\Commands',
 
     // 命令
     'commands'         => [

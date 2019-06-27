@@ -45,7 +45,7 @@ class Error extends AbstractComponent
         ];
         // 日志处理
         if (!($e instanceof NotFoundException)) {
-            self::log($errors);
+            static::log($errors);
         }
     }
 

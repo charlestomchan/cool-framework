@@ -13,13 +13,13 @@ use Cool\Contracts\Foundation\ComponentInterface;
 use Cool\Foundation\Bean;
 use Cool\Foundation\Bean\AbstractObject;
 use Cool\Foundation\Coroutine;
-use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class ContainerManager
  * @package Cool\Foundation\Container
  */
-class ContainerManager extends AbstractObject implements ContainerExceptionInterface
+class ContainerManager extends AbstractObject implements ContainerInterface
 {
     /**
      * 组件配置

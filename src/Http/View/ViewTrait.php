@@ -16,11 +16,6 @@ use Cool\Http\View;
  */
 trait ViewTrait
 {
-    /**
-     * 默认布局
-     * @var string
-     */
-    public $layout = 'main';
 
     /**
      * 渲染视图 (包含布局)
@@ -33,9 +28,10 @@ trait ViewTrait
         if (strpos($name, '.') === false) {
             $name = View::prefix($this) . '.' . $name;
         }
+        $layout          = $this->layout ?? 'main'; // use的类定义的layout属性会与Trait覆盖冲突，所以Trait内不可定义layout属性
         $view            = new View();
         $data['content'] = $view->render($name, $data);
-        return $view->render("layouts.{$this->layout}", $data);
+        return $view->render("layouts.{$layout}", $data);
     }
 
     /**

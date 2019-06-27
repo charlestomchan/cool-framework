@@ -9,7 +9,7 @@
 namespace Cool\Tcp;
 
 use Cool\Foundation\Application as BaseApplication;
-use Cool\Foundation\Traits\ComponentInitializeTrait;
+use Cool\Foundation\Application\ComponentInitializeTrait;
 
 /**
  * Class Application

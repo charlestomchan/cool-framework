@@ -12,7 +12,8 @@ namespace Cool\Http;
 use Cool\Contracts\Foundation\ComponentInterface;
 use Cool\Foundation\Component\AbstractComponent;
 use Cool\Foundation\Exceptions\NotFoundException;
-use Cool\Http\Message\Response\HttpResponse;
+use Cool\Support\JsonFormat;
+use Cool\Support\XmlHelper;
 
 /**
  * Class Error
@@ -64,10 +65,10 @@ class Error extends AbstractComponent
         ];
         // 日志处理
         if (!($e instanceof NotFoundException)) {
-            self::log($errors);
+            static::log($errors);
         }
         // 发送客户端
-        self::send($errors);
+        static::send($errors);
     }
 
     /**
@@ -117,26 +118,74 @@ class Error extends AbstractComponent
                 ];
             }
         }
-        $format                          = \Cool::$app->error->format;
-        $tpl                             = [
-            404 => "errors.{$format}.not_found",
-            500 => "errors.{$format}.internal_server_error",
-        ];
-        $content                         = (new View())->render($tpl[$statusCode], $errors);
         \Cool::$app->response->statusCode = $statusCode;
-        \Cool::$app->response->content    = $content;
-        switch ($format) {
-            case self::FORMAT_HTML:
-                \Cool::$app->response->format = HttpResponse::FORMAT_HTML;
+        switch (\Cool::$app->error->format) {
+            case static::FORMAT_HTML:
+                \Cool::$app->response->content = static::html($errors);
+                \Cool::$app->response->format  = \Cool\Http\Message\Response\HttpResponse::FORMAT_HTML;
                 break;
-            case self::FORMAT_JSON:
-                \Cool::$app->response->format = HttpResponse::FORMAT_JSON;
+            case static::FORMAT_JSON:
+                \Cool::$app->response->content = static::json($errors);
+                \Cool::$app->response->format  = \Cool\Http\Message\Response\HttpResponse::FORMAT_JSON;
                 break;
-            case self::FORMAT_XML:
-                \Cool::$app->response->format = HttpResponse::FORMAT_XML;
+            case static::FORMAT_XML:
+                \Cool::$app->response->content = static::xml($errors);
+                \Cool::$app->response->format  = \Cool\Http\Message\Response\HttpResponse::FORMAT_XML;
                 break;
         }
         \Cool::$app->response->send();
+    }
+
+    /**
+     * 生成html
+     * @param $errors
+     * @return string
+     */
+    protected static function html($errors)
+    {
+        $tpl = [
+            404 => "errors.not_found",
+            500 => "errors.internal_server_error",
+        ];
+        return (new View())->render($tpl[$errors['status']], $errors);
+    }
+
+    /**
+     * 生成json
+     * @param $errors
+     * @return string
+     */
+    protected static function json($errors)
+    {
+        // 转换trace格式
+        if (isset($errors['trace'])) {
+            $tmp = [];
+            foreach (explode("\n", $errors['trace']) as $key => $item) {
+                $tmp[strstr($item, ' ', true)] = trim(strstr($item, ' '));
+            }
+            $errors['trace'] = $tmp;
+        }
+        // 生成
+        return JsonFormat::encode($errors, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * 生成xml
+     * @param $errors
+     * @return string
+     */
+    protected static function xml($errors)
+    {
+        // 转换trace格式
+        if (isset($errors['trace'])) {
+            $tmp = [];
+            foreach (explode("\n", $errors['trace']) as $key => $item) {
+                $tmp['item' . substr(strstr($item, ' ', true), 1)] = trim(strstr($item, ' '));
+            }
+            $errors['trace'] = $tmp;
+        }
+        // 生成
+        return XmlHelper::encode($errors);
     }
 
 }

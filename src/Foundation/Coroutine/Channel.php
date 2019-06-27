@@ -25,7 +25,7 @@ class Channel extends \Swoole\Coroutine\Channel
 
     /**
      * Channel constructor.
-     * Ϊ�˴��벹ȫ�żӵģ�@method�޷����ù��췽��
+     * 为了代码补全才加的，@method无法设置构造方法
      * @param int $capacity
      */
     public function __construct(int $capacity = 1)

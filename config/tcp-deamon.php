@@ -19,7 +19,7 @@ return [
     'runtimePath'      => '',
 
     // 命令命名空间
-    'commandNamespace' => 'Cool\Tcp\Daemon\Commands',
+    'commandNamespace' => 'Cool\Tcp\Commands',
 
     // 命令
     'commands'         => [

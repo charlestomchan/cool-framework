@@ -17,11 +17,6 @@ use Cool\Foundation\Bean\AbstractObject;
  */
 abstract class AbstractComponent extends AbstractObject implements ComponentInterface
 {
-    /**
-     * 协程模式
-     * @var int
-     */
-    const COROUTINE_MODE = ComponentInterface::COROUTINE_MODE_NEW;
 
     /**
      * 组件状态

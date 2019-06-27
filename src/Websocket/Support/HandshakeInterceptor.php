@@ -8,8 +8,9 @@
 
 namespace Cool\Websocket\Support;
 
-use Cool\Http\Message\Request\HttpRequest as Request;
-use Cool\Http\Message\Response\HttpResponse as Response;
+use Cool\Http\Message\Request\HttpRequest;
+use Cool\Http\Message\Response\HttpResponse;
+use Cool\Websocket\WebSocketConnection;
 
 /**
  * Class HandshakeInterceptor
@@ -19,10 +20,10 @@ class HandshakeInterceptor
 {
     /**
      * 握手
-     * @param Request $request
-     * @param Response $response
+     * @param HttpRequest $request
+     * @param HttpResponse $response
      */
-    public function handshake(Request $request, Response $response)
+    public function handshake(WebSocketConnection $ws, HttpRequest $request, HttpResponse $response)
     {
         $secWebSocketKey = $request->header('sec-websocket-key');
         $patten          = '#^[+/0-9A-Za-z]{21}[AQgw]==$#';

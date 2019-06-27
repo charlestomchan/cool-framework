@@ -244,7 +244,7 @@ abstract class AbstractHttpRequest extends AbstractComponent
      */
     public function path()
     {
-        return substr($this->server('path_info'), 1);
+        return $this->server('path_info') ?: '/';
     }
 
     /**

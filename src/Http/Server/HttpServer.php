@@ -18,12 +18,6 @@ class HttpServer extends AbstractServer
 {
 
     /**
-     * 服务名称
-     * @var string
-     */
-    public $name = 'cool-httpd';
-
-    /**
      * 主机
      * @var string
      */

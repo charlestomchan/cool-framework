@@ -15,12 +15,6 @@ class TcpServer extends AbstractServer
 {
 
     /**
-     * 服务名称
-     * @var string
-     */
-    public $name = 'cool-tcpd';
-
-    /**
      * 主机
      * @var string
      */
