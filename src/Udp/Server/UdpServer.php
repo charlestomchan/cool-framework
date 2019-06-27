@@ -125,7 +125,7 @@ class UdpServer extends AbstractServer
             // 执行回调
             $this->setting['hook_worker_start'] and call_user_func($this->setting['hook_worker_start'], $server);
             // 实例化App
-            new \Cool\Udp\Application(require $this->configFile);
+            new \Cool\Udp\Application($this->config);
 
         } catch (\Throwable $e) {
             // 错误处理
