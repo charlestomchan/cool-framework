@@ -9,6 +9,7 @@
 namespace Cool\Redis\Base;
 
 
+use Cool\Contracts\Redis\ExecuteListenerInterface;
 use Cool\Contracts\Redis\RedisConnectionInterface;
 use Cool\Foundation\Component\AbstractComponent;
 
@@ -45,7 +46,7 @@ abstract class AbstractRedisConnection extends AbstractComponent implements Redi
     public $password = '';
 
     /**
-     * @var \Mix\Redis\ExecuteListenerInterface
+     * @var ExecuteListenerInterface
      */
     public $listener;
 

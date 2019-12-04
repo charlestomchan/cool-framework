@@ -9,8 +9,9 @@
 namespace Cool\Contracts\Websocket;
 
 
-use Cool\Http\Message\Request\HttpRequest as Request;
-use Cool\Http\Message\Response\HttpResponse as Response;
+use Cool\Http\Message\Request\HttpRequest ;
+use Cool\Http\Message\Response\HttpResponse;
+use Cool\Websocket\WebSocketConnection;
 
 /**
  * Interface InterceptorInterface

@@ -9,6 +9,7 @@
 namespace Cool\Database\Base;
 
 
+use Cool\Contracts\Database\ExecuteListenerInterface;
 use Cool\Contracts\Database\PDOConnectionInterface;
 use Cool\Database\Query\BuildHelper;
 use Cool\Database\Query\Expression;
@@ -42,7 +43,7 @@ abstract class AbstractPDOConnection extends AbstractComponent implements PDOCon
     public $driverOptions = [];
 
     /**
-     * @var \Cool\Database\ExecuteListenerInterface
+     * @var ExecuteListenerInterface
      */
     public $listener;
 

@@ -8,7 +8,7 @@
 
 namespace Cool\Contracts\Websocket;
 
-use Cool\Contracts\Http\Message\HttpRequestInterface as Request;
+use Cool\Http\Message\Request\HttpRequest;
 use Cool\Websocket\WebSocketConnection;
 use Swoole\WebSocket\Frame;
 
